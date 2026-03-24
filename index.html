@@ -3,14 +3,288 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ChemConnect | Home</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <title>ChemConnect | Neo-Lab Edition</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Space Grotesk', monospace;
+      background: radial-gradient(circle at 10% 20%, #0b1120, #03050b);
+      color: #e0f2fe;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    /* Glassmorphism navbar */
+    .navbar {
+      background: rgba(10, 20, 30, 0.65);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 255, 200, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 1rem 0;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #0affc6, #5f9ef0);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .logo i { color: #0affc6; margin-right: 6px; }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #cbd5e6;
+      transition: 0.2s;
+      letter-spacing: 0.3px;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: #0affc6;
+      text-shadow: 0 0 5px #0affc680;
+    }
+    .btn-outline {
+      border: 1.5px solid #0affc6;
+      padding: 0.45rem 1.2rem;
+      border-radius: 40px;
+      background: transparent;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+    .btn-outline:hover {
+      background: #0affc6;
+      color: #03050b !important;
+      box-shadow: 0 0 12px #0affc6;
+    }
+    .menu-icon {
+      display: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: #0affc6;
+    }
+    /* Hero */
+    .hero {
+      padding: 5rem 0 6rem;
+      background: radial-gradient(ellipse at 70% 20%, rgba(10, 180, 150, 0.15), transparent);
+    }
+    .hero-grid {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .hero-content { flex: 1.2; }
+    .hero-badge {
+      background: rgba(10, 255, 198, 0.15);
+      backdrop-filter: blur(4px);
+      color: #0affc6;
+      border: 1px solid rgba(10, 255, 198, 0.4);
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+    }
+    .hero-content h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+      background: linear-gradient(135deg, #ffffff, #8ce8ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1.2rem;
+    }
+    .hero-content p {
+      font-size: 1.1rem;
+      color: #a0b8d0;
+      max-width: 500px;
+      margin-bottom: 2rem;
+    }
+    .btn-primary {
+      background: linear-gradient(95deg, #0affc6, #1b98f0);
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: 0.2s;
+      color: #03050b;
+      box-shadow: 0 0 12px rgba(10, 255, 198, 0.4);
+    }
+    .btn-primary:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(10, 255, 198, 0.7);
+    }
+    .hero-icon {
+      flex: 0.8;
+      text-align: center;
+      font-size: 9rem;
+      filter: drop-shadow(0 0 12px #0affc6);
+      color: #0affc6;
+    }
+    /* Sections */
+    section { padding: 4rem 0; }
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #fff, #9cf5ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+    .section-sub {
+      color: #8aa3c0;
+      margin-bottom: 2.5rem;
+      border-left: 3px solid #0affc6;
+      padding-left: 1rem;
+    }
+    /* Cards grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .card {
+      background: rgba(15, 30, 45, 0.55);
+      backdrop-filter: blur(8px);
+      border-radius: 28px;
+      padding: 1.8rem;
+      transition: 0.3s ease;
+      border: 1px solid rgba(10, 255, 198, 0.2);
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: #0affc6;
+      box-shadow: 0 8px 24px rgba(10, 255, 198, 0.2);
+      background: rgba(15, 40, 55, 0.7);
+    }
+    .event-date {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #0affc6;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.5rem;
+    }
+    .card h3 {
+      font-size: 1.4rem;
+      margin: 0.5rem 0;
+      color: #fff;
+    }
+    .card p {
+      color: #cbdbe6;
+      margin: 0.8rem 0;
+    }
+    /* Join CTA */
+    .join-cta {
+      background: linear-gradient(145deg, rgba(10, 100, 100, 0.3), rgba(0, 20, 40, 0.6));
+      backdrop-filter: blur(12px);
+      border-radius: 48px;
+      padding: 2.5rem;
+      text-align: center;
+      border: 1px solid rgba(10, 255, 198, 0.4);
+    }
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: #0e1a28;
+      border: 1px solid #0affc6;
+      max-width: 500px;
+      width: 90%;
+      border-radius: 32px;
+      padding: 2rem;
+      position: relative;
+      box-shadow: 0 0 40px rgba(10,255,198,0.2);
+    }
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #0affc6;
+    }
+    .modal input, .modal textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      border-radius: 40px;
+      border: 1px solid #2c4c6c;
+      background: #0a121e;
+      color: white;
+    }
+    .modal button {
+      background: #0affc6;
+      color: #03050b;
+      font-weight: bold;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 40px;
+      width: 100%;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    footer {
+      background: rgba(3, 5, 11, 0.9);
+      padding: 2rem 0;
+      text-align: center;
+      border-top: 1px solid rgba(10, 255, 198, 0.2);
+      margin-top: 2rem;
+    }
+    .social-links a {
+      color: #8aa3c0;
+      margin: 0 0.8rem;
+      font-size: 1.2rem;
+      transition: 0.2s;
+    }
+    .social-links a:hover { color: #0affc6; text-shadow: 0 0 6px #0affc6; }
+    @media (max-width: 900px) {
+      .nav-links { display: none; width: 100%; flex-direction: column; gap: 1rem; padding-top: 1rem; }
+      .nav-links.active { display: flex; }
+      .menu-icon { display: block; }
+      .hero-content h1 { font-size: 2.2rem; }
+      .hero-icon { font-size: 5rem; }
+    }
+  </style>
 </head>
 <body>
 <nav class="navbar">
@@ -24,7 +298,7 @@
       <li><a href="blog.html">Blog</a></li>
       <li><a href="gallery.html">Gallery</a></li>
       <li><a href="faculty.html">Faculty</a></li>
-      <li><a href="#join" class="btn-outline" id="joinNavBtn">Join Club</a></li>
+      <li><a href="#join" class="btn-outline">Join Club</a></li>
     </ul>
   </div>
 </nav>
@@ -32,8 +306,8 @@
 <section class="hero">
   <div class="container hero-grid">
     <div class="hero-content">
-      <span class="hero-badge"><i class="fas fa-atom"></i> EST. 2024</span>
-      <h1>Where molecules <br> meet curiosity.</h1>
+      <span class="hero-badge"><i class="fas fa-dna"></i> EST. 2024</span>
+      <h1>Where molecules <br> meet <span style="color:#0affc6;">curiosity</span>.</h1>
       <p>Igniting passion for chemistry through experiments, research, and community. Join the most vibrant science club on campus.</p>
       <button class="btn-primary" id="heroJoinBtn"><i class="fas fa-beaker"></i> Become a member</button>
     </div>
@@ -41,24 +315,20 @@
   </div>
 </section>
 
-<!-- Upcoming Events Section with Modal Triggers -->
-<section id="upcoming" style="padding: 4rem 0;">
+<section id="upcoming">
   <div class="container">
     <h2 class="section-title">Upcoming Events</h2>
     <p class="section-sub">Click on any event to see details and register</p>
-    <div class="grid" id="upcomingEventsGrid">
-      <!-- Events will be injected via JS -->
-    </div>
+    <div class="grid" id="upcomingEventsGrid"></div>
   </div>
 </section>
 
-<!-- Join CTA -->
-<section id="join" style="padding: 2rem 0 4rem; background: #ffffff;">
-  <div class="container" style="text-align: center;">
-    <div style="background: linear-gradient(120deg, #cfe9e0 0%, #ffffff 100%); border-radius: 60px; padding: 2.5rem;">
-      <h2 style="font-size: 2rem; color:#0f3b3c;">🧬 Join the chemistry community</h2>
-      <p style="margin: 1rem auto; max-width: 600px;">Become a member and get access to lab workshops, mentoring, and exclusive networking with STEM professionals.</p>
-      <button class="btn-primary" id="finalJoinBtn" style="background:#e9b35f; color:#2d3e3b;"><i class="fas fa-user-plus"></i> Sign up now (free)</button>
+<section id="join">
+  <div class="container">
+    <div class="join-cta">
+      <h2 style="font-size: 1.8rem; color:#ffffff;">🧬 Join the chemistry community</h2>
+      <p style="margin: 1rem auto; max-width: 500px; color:#bdd4ff;">Get access to workshops, mentoring, and exclusive networking.</p>
+      <button class="btn-primary" id="finalJoinBtn"><i class="fas fa-user-plus"></i> Sign up now (free)</button>
     </div>
   </div>
 </section>
@@ -69,22 +339,18 @@
       <a href="#"><i class="fab fa-instagram"></i></a>
       <a href="#"><i class="fab fa-twitter"></i></a>
       <a href="#"><i class="fab fa-linkedin-in"></i></a>
-      <a href="#"><i class="fab fa-github"></i></a>
     </div>
     <p>© 2025 ChemConnect — College Chemistry Club | Curiosity fuels discovery</p>
   </div>
 </footer>
 
-<!-- Modal Structure -->
 <div id="eventModal" class="modal">
   <div class="modal-content">
     <span class="close-modal" onclick="closeModal()">&times;</span>
     <h3 id="modalTitle">Event Title</h3>
-    <div class="event-detail">
-      <p><strong><i class="far fa-calendar-alt"></i> Date:</strong> <span id="modalDate"></span></p>
-      <p><strong><i class="fas fa-map-marker-alt"></i> Location:</strong> <span id="modalLocation"></span></p>
-      <p><strong>Description:</strong> <span id="modalDescription"></span></p>
-    </div>
+    <div><p><strong>Date:</strong> <span id="modalDate"></span></p>
+         <p><strong>Location:</strong> <span id="modalLocation"></span></p>
+         <p><strong>Description:</strong> <span id="modalDescription"></span></p></div>
     <form id="registrationForm">
       <input type="hidden" id="modalEventId">
       <input type="text" id="regName" placeholder="Your Name" required>
@@ -94,59 +360,49 @@
   </div>
 </div>
 
-<script src="js/main.js"></script>
 <script>
-  // Event data (could be fetched from an API, but static for demo)
+  // (same event logic as clean version)
+  document.getElementById('menuToggle')?.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.toggle('active');
+  });
   const events = [
-    {
-      id: 1,
-      title: "🧪 Glow-in-the-dark Chem Lab",
-      date: "April 12, 2025 · 4:00 PM",
-      location: "Science Hall 204",
-      description: "Synthesis of luminescent compounds — create your own glowing solution. All safety gear provided. Perfect for beginners and experts alike!"
-    },
-    {
-      id: 2,
-      title: "🔬 Green Chemistry in Pharma",
-      date: "April 25, 2025 · 6:30 PM",
-      location: "Auditorium 101 & Virtual",
-      description: "Dr. Elena Vasquez (Pfizer) shares sustainable practices in modern drug development. Q&A + networking after the talk."
-    },
-    {
-      id: 3,
-      title: "⚗️ Mole Day BBQ + Demo Show",
-      date: "May 3, 2025 · 12:00 PM",
-      location: "Central Quad",
-      description: "Celebrate 6.02x10²³ with liquid nitrogen ice cream, elephant toothpaste, and delicious BBQ! Bring your friends."
-    }
+    { id:1, title:"🧪 Glow-in-the-dark Chem Lab", date:"April 12, 2025 · 4:00 PM", location:"Science Hall 204", description:"Synthesis of luminescent compounds — create your own glowing solution. All safety gear provided." },
+    { id:2, title:"🔬 Green Chemistry in Pharma", date:"April 25, 2025 · 6:30 PM", location:"Auditorium 101 & Virtual", description:"Dr. Elena Vasquez (Pfizer) shares sustainable practices in modern drug development. Q&A + networking." },
+    { id:3, title:"⚗️ Mole Day BBQ + Demo Show", date:"May 3, 2025 · 12:00 PM", location:"Central Quad", description:"Celebrate 6.02x10²³ with liquid nitrogen ice cream, elephant toothpaste, and food!" }
   ];
-
   const grid = document.getElementById('upcomingEventsGrid');
-  if (grid) {
-    events.forEach(ev => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.style.cursor = 'pointer';
-      card.innerHTML = `
-        <div class="event-date"><i class="far fa-calendar-alt"></i> ${ev.date}</div>
-        <h3>${ev.title}</h3>
-        <p>${ev.description.substring(0, 80)}...</p>
-        <span style="color:#1f6e6b; font-weight:500;">📍 ${ev.location}</span>
-      `;
-      card.addEventListener('click', () => openEventModal(ev));
-      grid.appendChild(card);
-    });
+  events.forEach(ev => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `<div class="event-date"><i class="far fa-calendar-alt"></i> ${ev.date}</div><h3>${ev.title}</h3><p>${ev.description.substring(0,80)}...</p><span style="color:#0affc6;">📍 ${ev.location}</span>`;
+    card.addEventListener('click', () => openEventModal(ev));
+    grid.appendChild(card);
+  });
+  function openEventModal(event) {
+    document.getElementById('modalTitle').innerText = event.title;
+    document.getElementById('modalDate').innerText = event.date;
+    document.getElementById('modalLocation').innerText = event.location;
+    document.getElementById('modalDescription').innerText = event.description;
+    document.getElementById('modalEventId').value = event.id;
+    document.getElementById('eventModal').style.display = 'flex';
   }
-
-  // Join buttons
-  function handleJoin() {
-    alert("🎉 Thanks for your interest! Check your college email for ChemConnect updates.");
-  }
+  function closeModal() { document.getElementById('eventModal').style.display = 'none'; }
+  document.getElementById('registrationForm')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    if(!name || !email) { alert("Please enter your name and email."); return; }
+    alert(`Thanks ${name}! You are registered. We'll send details to ${email}.`);
+    closeModal();
+    e.target.reset();
+  });
+  window.onclick = (event) => { if(event.target === document.getElementById('eventModal')) closeModal(); };
+  function handleJoin() { alert("🎉 Thanks for your interest! Check your college email for updates."); }
   document.getElementById('heroJoinBtn')?.addEventListener('click', handleJoin);
   document.getElementById('finalJoinBtn')?.addEventListener('click', handleJoin);
   document.getElementById('joinNavBtn')?.addEventListener('click', (e) => {
     e.preventDefault();
-    document.getElementById('join')?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('join').scrollIntoView({ behavior: 'smooth' });
     setTimeout(handleJoin, 300);
   });
 </script>
